@@ -1,0 +1,60 @@
+--//Anti-Kick\\--
+local old
+
+old = hookmetamethod(game, "__namecall", function(self, ...)
+
+	local method = getnamecallmethod()
+	local args = {...}
+
+	if not checkcaller() and method == "Kick" or method == "kick" then
+		warn("Kick Returned | System")
+		game:GetService("StarterGui"):SetCore("SendNotification", { 
+			Title = "Notification";
+			Text = "Game tried to kick you!";
+			Icon = "rbxthumb://type=Asset&id=5107182114&w=150&h=150"})
+		Duration = 8;
+		return wait(9e9)
+	end
+
+	return old(self, ...)
+end)
+
+hookfunction(game.Players.LocalPlayer.Kick,(function()
+    return wait(9e9)
+end))
+
+hookfunction(game.Players.LocalPlayer.kick,(function()
+    return wait(9e9)
+end))
+
+hookfunction(game:GetService("Players").LocalPlayer.Kick,(function()
+    return wait(9e9)
+end))
+
+hookfunction(game:GetService("Players").LocalPlayer.kick,(function()
+    return wait(9e9)
+end))
+
+--//Anti-AFK\\--
+local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+	game:GetService("StarterGui"):SetCore("SendNotification", { 
+		Title = "Notification";
+		Text = "Game tried to kick you for being afk!";
+		Icon = "rbxthumb://type=Asset&id=5107182114&w=150&h=150"})
+	Duration = 8;
+	wait(0.01)
+	vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+	wait(1)
+	vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+
+--//End\\--
+wait(0.01)
+game:GetService("StarterGui"):SetCore("SendNotification", { 
+	Title = "Notification";
+	Text = "Loaded Anti-Kick and Anti-AFK";
+	Icon = "rbxthumb://type=Asset&id=5107182114&w=150&h=150"})
+Duration = 16;
+wait(0.01)
+warn("End c:")
